@@ -1,0 +1,26 @@
+{
+  "server": {
+    "title": "Server",
+    "label": "Alamat server Rencana",
+    "hint": "mis. https://api.example.com",
+    "save": "Periksa & simpan",
+    "checking": "Memeriksa…",
+    "invalid": "Masukkan alamat valid yang diawali https://",
+    "unreachable": "Tidak ada server Rencana yang menjawab di alamat ini.",
+    "changeWarning": "Mengganti server akan mengeluarkan Anda dari perangkat ini.",
+    "current": "Server: {url}"
+  },
+  "tickets": {
+    "addPhoto": "Foto",
+    "addPdf": "PDF"
+  },
+  "common": {
+    "openFailed": "Tidak dapat membuka berkas.",
+    "retry": "Coba lagi",
+    "search": "Cari",
+    "noResults": "Tidak ada hasil"
+  },
+  "auth": {
+    "sessionExpired": "Sesi Anda berakhir. Silakan masuk lagi."
+  }
+}

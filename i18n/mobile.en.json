@@ -1,0 +1,26 @@
+{
+  "server": {
+    "title": "Server",
+    "label": "Rencana server address",
+    "hint": "e.g. https://api.example.com",
+    "save": "Check & save",
+    "checking": "Checking…",
+    "invalid": "Enter a valid address starting with https://",
+    "unreachable": "No Rencana server answered at this address.",
+    "changeWarning": "Changing the server signs you out on this device.",
+    "current": "Server: {url}"
+  },
+  "tickets": {
+    "addPhoto": "Photo",
+    "addPdf": "PDF"
+  },
+  "common": {
+    "openFailed": "Couldn't open the file.",
+    "retry": "Try again",
+    "search": "Search",
+    "noResults": "No results"
+  },
+  "auth": {
+    "sessionExpired": "Your session ended. Please log in again."
+  }
+}
