@@ -30,7 +30,8 @@ export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
 ./gradlew :androidApp:installDebug                    # Android debug build on a device/emulator
 ./gradlew :androidApp:assembleRelease                 # R8-minified release build
 xcodebuild -project iosApp/iosApp.xcodeproj -scheme iosApp -configuration Debug -sdk iphonesimulator \
-  -destination 'platform=iOS Simulator,name=iPhone 16' -derivedDataPath build/ios CODE_SIGNING_ALLOWED=NO build
+  -destination 'platform=iOS Simulator,name=iPhone 16' -derivedDataPath build/ios \
+  CODE_SIGN_STYLE=Manual CODE_SIGN_IDENTITY=- DEVELOPMENT_TEAM= build   # ad-hoc signing: the Keychain needs the simulated entitlements
 node scripts/gen-strings.mjs [../rencana-web/i18n/locales]   # after changing web or mobile strings
 ```
 

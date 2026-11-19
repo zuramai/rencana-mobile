@@ -29,10 +29,15 @@ class TokenStore(private val store: SecureStore, private val baseUrl: String) {
         return tokens
     }
 
-    /** Persists a freshly issued [pair]. */
+    /**
+     * Persists a freshly issued [pair]. Throws when the platform store did not keep it (e.g. an iOS build
+     * without keychain entitlements), so sign-in fails visibly instead of silently losing the session.
+     */
     fun save(pair: TokenPair) {
         val blob = StoredTokens(baseUrl, pair.accessToken, pair.accessTokenExpiresAt, pair.refreshToken, pair.refreshTokenExpiresAt)
-        store.put(ApiJson.encodeToString(StoredTokens.serializer(), blob))
+        val encoded = ApiJson.encodeToString(StoredTokens.serializer(), blob)
+        store.put(encoded)
+        check(store.get() == encoded) { "Secure storage did not keep the session tokens" }
     }
 
     /** Forgets the tokens. */
