@@ -82,7 +82,9 @@ data class PlanDto(
     /** Decimal string such as `"25000000.00"` */
     val budgetAmount: String?,
     val createdAt: String,
-    val updatedAt: String
+    val updatedAt: String,
+    /** IANA zone of the destination; calendar events use it. */
+    val timeZone: String? = null
 )
 
 @Serializable
@@ -189,7 +191,9 @@ data class PlanInput(
     val endMonth: Int?,
     val budgetCurrency: String,
     /** Decimal string, e.g. from `normalizeAmount` */
-    val budgetAmount: String?
+    val budgetAmount: String?,
+    /** IANA zone or null for "not set"; always sent. */
+    val timeZone: String?
 )
 
 /** Itinerary item body (multipart field `data`). `removeImage` only on update. */

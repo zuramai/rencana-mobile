@@ -198,7 +198,7 @@ fun PlanDetailScreen(planId: String, initialTab: String, onBack: () -> Unit, onE
                         tab, { tab = it }, tag = { "tab_$it" }
                     )
                     when (tab) {
-                        "itinerary" -> ItineraryTab(items, { itemSheet = Holder(it) }, { itemSheet = Holder(null) })
+                        "itinerary" -> ItineraryTab(items, plan?.timeZone, { itemSheet = Holder(it) }, { itemSheet = Holder(null) })
                         "costs" -> summary?.let { s ->
                             CostsTab(planId, costs, s, { cost, preset -> costSheet = Holder(cost) to preset }, vm::refreshSummary)
                         }

@@ -1,6 +1,6 @@
 # rencana-mobile
 
-Android and iOS app for **Rencana**, the travel & budget planner with Koper the suitcase. Same features as the web app ([`rencana-web`](https://github.com/zuramai/rencana-web)): sign-in (username or Google), plans, itinerary, other costs, exchange rates, tickets (photos and PDFs), PDF/Excel exports, settings, English and Bahasa Indonesia. Both clients talk to [`rencana-backend`](https://github.com/zuramai/rencana-backend); the server address is configurable in the app.
+Android and iOS app for **Rencana**, the travel & budget planner with Koper the suitcase. Same features as the web app ([`rencana-web`](https://github.com/zuramai/rencana-web)): sign-in (username or Google), plans, itinerary, other costs, exchange rates, tickets (photos and PDFs), PDF/Excel/calendar (.ics) exports, per-activity "Add to Google Calendar" links (with a destination time zone per plan), settings, English and Bahasa Indonesia. Both clients talk to [`rencana-backend`](https://github.com/zuramai/rencana-backend); the server address is configurable in the app.
 
 Stack: Kotlin Multiplatform with a shared Compose Multiplatform UI (`shared/`), Ktor client, kotlinx-serialization, navigation-compose, Coil 3, FileKit. Package / bundle id: `com.zuramai.rencana`.
 

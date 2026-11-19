@@ -32,6 +32,7 @@ import com.zuramai.rencana.i18n.LocalLanguage
 import com.zuramai.rencana.i18n.S
 import com.zuramai.rencana.i18n.t
 import com.zuramai.rencana.i18n.text
+import com.zuramai.rencana.platform.timeZoneId
 import com.zuramai.rencana.ui.LocalAppContainer
 import com.zuramai.rencana.ui.LocalSnackbar
 import com.zuramai.rencana.ui.RColors
@@ -47,6 +48,7 @@ import com.zuramai.rencana.ui.screens.planform.CoverValue
 import com.zuramai.rencana.ui.screens.planform.PeriodInput
 import com.zuramai.rencana.ui.screens.planform.PeriodMode
 import com.zuramai.rencana.ui.screens.planform.PeriodValue
+import com.zuramai.rencana.ui.screens.planform.TimeZoneField
 import io.github.vinceglb.filekit.FileKit
 import io.github.vinceglb.filekit.ImageFormat
 import io.github.vinceglb.filekit.PlatformFile
@@ -70,6 +72,7 @@ class PlanFormViewModel(val container: AppContainer, val planId: String?) : View
         (container.session.state.value as? SessionState.LoggedIn)?.me?.defaultCurrency ?: "USD"
     )
     var amount by mutableStateOf("")
+    var timeZone by mutableStateOf<String?>(if (planId == null) timeZoneId() else null)
     var pending by mutableStateOf(false)
     var error by mutableStateOf<S?>(null)
 
@@ -97,6 +100,7 @@ class PlanFormViewModel(val container: AppContainer, val planId: String?) : View
                 )
                 currency = p.budgetCurrency
                 amount = amountToInput(p.budgetAmount)
+                timeZone = p.timeZone
             } catch (e: CancellationException) {
                 throw e
             } catch (e: Exception) {
@@ -138,7 +142,8 @@ class PlanFormViewModel(val container: AppContainer, val planId: String?) : View
             endYear = if (range) period.endYear else null,
             endMonth = if (range) period.endMonth else null,
             budgetCurrency = currency,
-            budgetAmount = normalizeAmount(amount)
+            budgetAmount = normalizeAmount(amount),
+            timeZone = timeZone
         )
         val upload = if (cover.coverType == "image") coverUpload else null
         viewModelScope.launch {
@@ -191,6 +196,7 @@ fun PlanFormScreen(planId: String?, @Suppress("UNUSED_PARAMETER") fromList: Bool
                         label = t(S.PLAN_TRIP_NAME), placeholder = t(S.PLAN_TRIP_NAME_PLACEHOLDER)
                     )
                     PeriodInput(vm.period, { vm.period = it })
+                    TimeZoneField(vm.timeZone, { vm.timeZone = it })
                     MoneyInput(
                         vm.currency, vm.amount, { vm.currency = it }, { vm.amount = it },
                         Modifier.fillMaxWidth(), label = t(S.PLAN_EXPECTED_BUDGET), tagPrefix = "plan_budget"

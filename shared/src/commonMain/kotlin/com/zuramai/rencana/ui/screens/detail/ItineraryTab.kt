@@ -21,10 +21,13 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.composables.icons.lucide.CalendarPlus
 import com.composables.icons.lucide.Link
 import com.composables.icons.lucide.Lucide
 import com.zuramai.rencana.data.ItemDto
 import com.zuramai.rencana.domain.formatDayLabel
+import com.zuramai.rencana.domain.googleCalendarUrl
+import com.zuramai.rencana.domain.toCalendarItem
 import com.zuramai.rencana.domain.groupByDay
 import com.zuramai.rencana.i18n.LocalLanguage
 import com.zuramai.rencana.i18n.S
@@ -40,7 +43,7 @@ import com.zuramai.rencana.ui.components.RCard
 
 /** Day-grouped itinerary (web ItineraryList). */
 @Composable
-internal fun ItineraryTab(items: List<ItemDto>, onOpen: (ItemDto) -> Unit, onAdd: () -> Unit) {
+internal fun ItineraryTab(items: List<ItemDto>, timeZone: String?, onOpen: (ItemDto) -> Unit, onAdd: () -> Unit) {
     val lang = LocalLanguage.current
     if (items.isEmpty()) {
         EmptyState(
@@ -57,13 +60,13 @@ internal fun ItineraryTab(items: List<ItemDto>, onOpen: (ItemDto) -> Unit, onAdd
                 Text("·", style = type.bodySemi.copy(fontSize = 14.sp, color = RColors.Muted))
                 Text(formatDayLabel(day.date, lang), style = type.bodySemi.copy(fontSize = 14.sp, color = RColors.Muted))
             }
-            for (item in day.items) ItemCard(item, lang) { onOpen(item) }
+            for (item in day.items) ItemCard(item, lang, timeZone) { onOpen(item) }
         }
     }
 }
 
 @Composable
-private fun ItemCard(item: ItemDto, lang: String, onClick: () -> Unit) {
+private fun ItemCard(item: ItemDto, lang: String, timeZone: String?, onClick: () -> Unit) {
     val type = RencanaType.current
     val startTime = item.startsAt.drop(11)
     val end = item.endsAt
@@ -103,6 +106,13 @@ private fun ItemCard(item: ItemDto, lang: String, onClick: () -> Unit) {
                                 }
                             }
                         }
+                    }
+                    Row(
+                        Modifier.clickable { runCatching { uri.openUri(googleCalendarUrl(item.toCalendarItem(), timeZone)) } }.testTag("item_gcal_${item.id}"),
+                        verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)
+                    ) {
+                        Icon(Lucide.CalendarPlus, null, tint = RColors.Primary, modifier = Modifier.size(14.dp))
+                        Text(t(S.CALENDAR_ADD_TO_GOOGLE), style = type.caption.copy(fontSize = 12.sp, color = RColors.Primary))
                     }
                     if (!item.note.isNullOrBlank()) {
                         Text(item.note, style = type.body.copy(fontSize = 14.sp, color = RColors.Muted), maxLines = 2, overflow = TextOverflow.Ellipsis)

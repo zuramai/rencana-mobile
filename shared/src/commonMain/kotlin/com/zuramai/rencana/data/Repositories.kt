@@ -35,7 +35,8 @@ class AuthRepository(private val api: ApiProvider) {
 enum class ExportKind(val wire: String) {
     ItineraryPdf("itinerary-pdf"),
     ItineraryXlsx("itinerary-xlsx"),
-    TicketsPdf("tickets-pdf")
+    TicketsPdf("tickets-pdf"),
+    CalendarIcs("calendar-ics")
 }
 
 /** Plans, items, costs, rates and tickets (plan section 1.8). All ids are UUID strings. */

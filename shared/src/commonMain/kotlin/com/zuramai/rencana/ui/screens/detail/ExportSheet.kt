@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.composables.icons.lucide.CalendarPlus
 import com.composables.icons.lucide.Download
 import com.composables.icons.lucide.FileSpreadsheet
 import com.composables.icons.lucide.FileText
@@ -54,7 +55,8 @@ internal fun ExportSheet(planId: String, hasTickets: Boolean, onDismiss: () -> U
     val rows = listOf(
         ExportRow(ExportKind.ItineraryPdf, Lucide.FileText, Color(0xFFEF4444), S.EXPORT_ITINERARY_PDF, S.EXPORT_ITINERARY_PDF_SUB, "itinerary.pdf", false),
         ExportRow(ExportKind.ItineraryXlsx, Lucide.FileSpreadsheet, Color(0xFF16A34A), S.EXPORT_ITINERARY_XLSX, S.EXPORT_ITINERARY_XLSX_SUB, "itinerary.xlsx", false),
-        ExportRow(ExportKind.TicketsPdf, Lucide.Ticket, Color(0xFF3B82F6), S.EXPORT_TICKETS_PDF, if (hasTickets) S.EXPORT_TICKETS_PDF_SUB else S.EXPORT_NO_TICKETS, "tickets.pdf", !hasTickets)
+        ExportRow(ExportKind.TicketsPdf, Lucide.Ticket, Color(0xFF3B82F6), S.EXPORT_TICKETS_PDF, if (hasTickets) S.EXPORT_TICKETS_PDF_SUB else S.EXPORT_NO_TICKETS, "tickets.pdf", !hasTickets),
+        ExportRow(ExportKind.CalendarIcs, Lucide.CalendarPlus, Color(0xFF0EA5E9), S.EXPORT_CALENDAR_ICS, S.EXPORT_CALENDAR_ICS_SUB, "itinerary.ics", false)
     )
     FormSheet(t(S.EXPORT_TITLE), onDismiss) {
         if (failed) ErrorText(t(S.COMMON_OPEN_FAILED))
